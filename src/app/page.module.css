@@ -1,4 +1,4 @@
-/* .container {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,122 +8,101 @@
   padding: 0 0.5rem;
 }
 
+.buttonContainer {
+  display: flex;
+  gap: 15px; /* ボタン間のスペース */
+  margin-bottom: 30px;
+}
+
+.buttonContainer button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  background-color: #007bff; /* 青色 */
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.buttonContainer button:hover {
+  background-color: #0056b3;
+}
+
+/* -------------------------------------------
+ * 迷路ボード
+ * ------------------------------------------- */
 .board {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  width: 330px;
-  height: 330px;
+  /* 迷路は 11x11 のグリッドなので、grid-template-columns で設定 */
+  display: grid;
+  grid-template-rows: repeat(11, 40px); /* 11行、各セルの高さを 40px に */
+  grid-template-columns: repeat(11, 40px); /* 11列、各セルの幅を 40px に */
+  border: 4px solid #333; /* 迷路全体の境界線 */
+  box-shadow: 5px 5px 15px rgb(0 0 0 / 20%);
 }
 
+/* -------------------------------------------
+ * セル (マス) の基本スタイル
+ * ------------------------------------------- */
 .cell {
+  position: relative; /* キャラクターの位置決めに必要 */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+
+  /* 道 (0, 2, 3) のデフォルト背景色 */
+  background-color: #fff; /* 白 */
 }
 
+/* -------------------------------------------
+ * 迷路要素
+ * ------------------------------------------- */
+
+/* 外壁 (4) */
+.wall {
+  width: 100%;
+  height: 100%;
+  background-color: #333; /* 濃い灰色 */
+}
+
+/* 内壁 (1) - 柱や障害物 */
 .pillar {
-  width: 30px;
-  height: 30px;
-  background-color: black;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #6c757d; /* やや薄い灰色 */
+  border: 1px solid #495057;
 }
 
-.startCell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: red;
-  border: 1px solid black;
-}
-
+/* ゴール (3) */
 .goalCell {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: green;
-  border: 1px solid black;
-}
-
-.character {
-  width: 30px;
-  height: 30px;
-  background-color: aquamarine;
-  border-radius: 50%;
-}
-
-.wall {
-  width: 30px;
-  height: 30px;
-  background-color: black;
-} */
-
-/* container, board のスタイルは適宜調整してください */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
-}
-
-.board {
-  display: grid;
-  grid-template-rows: repeat(11, 40px); /* 1セル40px */
-
-  /* 11x11のグリッド */
-  grid-template-columns: repeat(11, 40px); /* 1セル40px */
-  margin-top: 20px;
-  background-color: white;
-  border: 2px solid #333;
-}
-
-.cell {
-  box-sizing: border-box; /* paddingやborderをwidth/heightに含める */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #eee; /* セル間の区切り線 */
-}
-
-.pillar {
   width: 100%;
   height: 100%;
-  background-color: #555; /* 壁の色 */
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+
+  /* ゴールであることを示すマーク */
+  content: 'G';
+  background-color: #28a745; /* 緑色 */
 }
 
+/* -------------------------------------------
+ * キャラクター
+ * ------------------------------------------- */
 .character {
-  width: 80%; /* セルの80%の大きさ */
-  height: 80%; /* セルの80%の大きさ */
-  background-color: dodgerblue; /* キャラクターの色 */
+  z-index: 10; /* 他の要素の上に表示 */
+
+  /* キャラクター自体は 100% のセルの中央に配置 */
+  width: 70%;
+  height: 70%;
+  background-color: #dc3545; /* 赤色 (プレイヤー) */
   border-radius: 50%; /* 丸い形 */
 
-  /* 必要であれば、ここにアニメーションや影などを追加できます */
-}
-
-.goalCell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 0.8em;
-  font-weight: bold;
-  background-color: gold; /* ゴールセルの色 */
-}
-
-.wall {
-  width: 100%;
-  height: 100%;
-  background-color: #333; /* 外壁の色 */
+  /* ポジションの調整 (セルの中央に来るように flex で既に調整済み) */
 }
